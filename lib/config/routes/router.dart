@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:weather_project/features/auth/presentation/pages/login_page.dart';
+import 'package:weather_project/features/auth/presentation/pages/sign_in_page.dart';
 import 'package:weather_project/features/root/home_page.dart';
 
 enum AppRoutePath {
@@ -11,7 +11,7 @@ enum AppRoutePath {
       case home:
         return '/home';
       case login:
-        return '/login';
+        return '/signin';
     }
   }
 }
@@ -24,7 +24,7 @@ class AppRouter {
       GoRoute(
         path: AppRoutePath.login.relativePath,
         name: AppRoutePath.login.name,
-        builder: (context, state) => const LoginPage(),
+        builder: (context, state) => const SignInPage(),
       ),
       GoRoute(
         path: AppRoutePath.home.relativePath,

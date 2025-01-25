@@ -1,17 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_entity.dart';
+part of 'sign_in_entity.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$LoginEntityImpl _$$LoginEntityImplFromJson(Map json) => _$LoginEntityImpl(
+_$SignInEntityImpl _$$SignInEntityImplFromJson(Map json) => _$SignInEntityImpl(
       email: json['email'] as String,
       password: json['password'] as String,
     );
 
-Map<String, dynamic> _$$LoginEntityImplToJson(_$LoginEntityImpl instance) =>
+Map<String, dynamic> _$$SignInEntityImplToJson(_$SignInEntityImpl instance) =>
     <String, dynamic>{
       'email': instance.email,
       'password': instance.password,

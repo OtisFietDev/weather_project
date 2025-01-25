@@ -4,8 +4,8 @@ import 'package:signals/signals_flutter.dart';
 import 'package:weather_project/features/auth/presentation/signals/auth_signal.dart';
 import 'package:weather_project/injectable.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class SignInPage extends StatelessWidget {
+  const SignInPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class LoginPage extends StatelessWidget {
       width: 350,
       decoration: _buildFormContainerDecoration(),
       child: Form(
-        key: authSignal.formKey,
+        key: authSignal.signInFormKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -48,7 +48,7 @@ class LoginPage extends StatelessWidget {
             _buildEmailField(authSignal),
             const Gap(16),
             _buildPasswordField(authSignal),
-            const Gap(24),
+            const Gap(8),
             _buildLoginButton(authSignal),
           ],
         ),
@@ -118,21 +118,29 @@ class LoginPage extends StatelessWidget {
 
   Widget _buildLoginButton(AuthSignal authSignal) {
     return Watch((context) {
-      final isLoading = authSignal.isLoading.value;
+      final isLoading = authSignal.isSigningLoading.value;
       final error = authSignal.error.value;
 
-      if (error.isNotEmpty) {
-        return Text(
-          error,
-          style: const TextStyle(color: Colors.red),
-          textAlign: TextAlign.center,
-        );
-      }
-
-      return ElevatedButton(
-        onPressed: isLoading ? null : () => authSignal.handleLogin(context),
-        style: _buildButtonStyle(),
-        child: _buildButtonChild(isLoading),
+      return Column(
+        children: [
+          if (error.isNotEmpty) ...[
+            const Gap(8),
+            Text(
+              error,
+              style: const TextStyle(color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          ],
+          const Gap(8),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: isLoading ? null : () => authSignal.handleLogin(context),
+              style: _buildButtonStyle(),
+              child: _buildButtonChild(isLoading),
+            ),
+          ),
+        ],
       );
     });
   }
@@ -152,7 +160,9 @@ class LoginPage extends StatelessWidget {
         ? const SizedBox(
             height: 20,
             width: 20,
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
           )
         : const Text(
             'Login',
