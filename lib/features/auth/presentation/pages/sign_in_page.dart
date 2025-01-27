@@ -48,6 +48,7 @@ class SignInPage extends StatelessWidget {
             _buildEmailField(authSignal),
             const Gap(16),
             _buildPasswordField(authSignal),
+            _buildEventLog(authSignal),
             const Gap(8),
             _buildLoginButton(authSignal),
           ],
@@ -116,31 +117,34 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  Widget _buildLoginButton(AuthSignal authSignal) {
+  Widget _buildEventLog(AuthSignal authSignal) {
     return Watch((context) {
-      final isLoading = authSignal.isSigningLoading.value;
       final error = authSignal.error.value;
 
       return Column(
         children: [
-          if (error.isNotEmpty) ...[
-            const Gap(8),
-            Text(
-              error,
-              style: const TextStyle(color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-          ],
           const Gap(8),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: isLoading ? null : () => authSignal.handleLogin(context),
-              style: _buildButtonStyle(),
-              child: _buildButtonChild(isLoading),
-            ),
+          Text(
+            error,
+            style: const TextStyle(color: Colors.white),
+            textAlign: TextAlign.center,
           ),
         ],
+      );
+    });
+  }
+
+  Widget _buildLoginButton(AuthSignal authSignal) {
+    return Watch((context) {
+      final isLoading = authSignal.isSigningLoading.value;
+
+      return SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(
+          onPressed: isLoading ? null : () => authSignal.handleLogin(context),
+          style: _buildButtonStyle(),
+          child: _buildButtonChild(isLoading),
+        ),
       );
     });
   }

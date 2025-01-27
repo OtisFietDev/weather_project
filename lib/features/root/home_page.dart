@@ -12,13 +12,26 @@ class HomePage extends StatelessWidget {
       body: Container(
         decoration: _buildGradientBackground(),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildWeatherCard(),
-              const Gap(16),
-              _buildPowerButton(context),
-            ],
+          child: TweenAnimationBuilder(
+            tween: Tween<double>(begin: 0.0, end: 1.0),
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeOut,
+            builder: (context, double value, child) {
+              return Opacity(
+                opacity: value,
+                child: Transform.translate(
+                  offset: Offset(0, 50 * (1 - value)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildWeatherCard(),
+                      const Gap(16),
+                      _buildPowerButton(context),
+                    ],
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ),
@@ -106,11 +119,22 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildPowerButton(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.power_settings_new),
-      iconSize: 20,
-      color: Colors.white,
-      onPressed: () => context.goNamed(AppRoutePath.login.name),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(
+          icon: const Icon(Icons.power_settings_new),
+          iconSize: 20,
+          color: Colors.white,
+          onPressed: () => context.goNamed(AppRoutePath.login.name),
+        ),
+        IconButton(
+          icon: const Icon(Icons.list_alt_rounded),
+          iconSize: 20,
+          color: Colors.white,
+          onPressed: () => context.goNamed(AppRoutePath.weatherList.name),
+        ),
+      ],
     );
   }
 }

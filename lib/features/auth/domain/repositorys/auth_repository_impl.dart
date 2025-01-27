@@ -14,7 +14,7 @@ import 'package:weather_project/features/auth/domain/entities/user_entity.dart';
 @Singleton(as: AuthRepository)
 class AuthRepositoryImpl implements AuthRepository {
   final http.Client client;
-  // final String baseUrl = 'https://051f-121-157-188-88.ngrok-free.app';
+  // final String baseUrl = 'https://86de-121-157-188-88.ngrok-free.app';
   static final baseUrl = Platform.isAndroid ? 'http://10.0.2.2:8080' : 'http://localhost:8080';
 
   AuthRepositoryImpl(this.client);
